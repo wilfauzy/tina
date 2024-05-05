@@ -1,0 +1,40 @@
+query PageQuery {
+  ...LayoutQueryFragment
+  postConnection {
+    edges {
+      node {
+        _sys {
+          filename
+        }
+        ...PostParts
+        author {
+          __typename
+          ... on Author {
+            name
+            avatar
+            id
+          }
+        }
+      }
+    }
+  }
+}
+query ContentQuery($relativePath: String!) {
+  ...LayoutQueryFragment
+  page(relativePath: $relativePath) {
+    ...PageParts
+  }
+}
+
+query BlogPostQuery($relativePath: String!) {
+  ...LayoutQueryFragment
+  post(relativePath: $relativePath) {
+    ...PostParts
+    author {
+      ... on Author {
+        name
+        avatar
+      }
+    }
+  }
+}
